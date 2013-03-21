@@ -8,18 +8,16 @@ import sys
 
 #data_example = '{"id":1, "name":"Giulliano", "age":30, "parentes": [{"id":2, "name":"Joyce", "age":28, "parentes": [{"id":3, "name":"Soraya", "age":50}]}]}'
 
-data_example = ''
-data_example += '[{"id":1, "name":"Giulliano", "age":30, "parentes": [{"id":2, "name":"Joyce", "age":28}]},'
-data_example += '{"id":1, "name":"Yuri", "age":25, "parentes": [{"id":2, "name":"Eduardo", "age":50}]},'
-data_example += '{"id":1, "name":"Soraya", "age":30, "parentes": [{"id":2, "name":"Joyce", "age":28}]}]'
+#data_example = ''
+#data_example += '[{"id":1, "name":"Giulliano", "age":30, "parentes": [{"id":2, "name":"Joyce", "age":28}]},'
+#data_example += '{"id":1, "name":"Yuri", "age":25, "parentes": [{"id":2, "name":"Eduardo", "age":50}]},'
+#data_example += '{"id":1, "name":"Soraya", "age":30, "parentes": [{"id":2, "name":"Joyce", "age":28}]}]'
 
 def all_keys():
   '''
     pt_BR: Retorna todas as cahves do documento
     en_US: Return all keys from document
   '''
-  #remove aspas duplas e simples
-  #remove espaçoes em branco
   data = data_example.replace('"', '').replace(' ', '') 
   data = eval(str(data_example))
   keys = []
@@ -71,21 +69,56 @@ def query_by_keys(keys, data=None):
   if data == None:
     data = data_example
   if str(data)[0] == '[':
+    print 'changing to query_list_by_keys'
     return query_list_by_keys(keys, data)
 
+  results = []
   try:
     keys = keys.split('$')
     json_data = eval(str(data))
+    print 'json_data: ' + str(json_data)
     _value = json_data
-    while(len(keys)):
+
+    dicts = []
+    while(True):
       key = keys.pop(0)
       if key == '': continue
-
+      print 'key: ' + key
       _value = _value[key]
       if isinstance(_value, list):
-	_value = _value[0]
+	for v in _value:
+	  dicts.append(v)
+      else:
+	dicts.append(_value)
+      break;
+    print 'dicts: ' + str(dicts)
+
+    new_dicts = []
+    for d in dicts:
+      key = keys.pop(0)
+      print 'key: ' + key
+      if isinstance(d, list):
+	for v in d:
+	  new_dicts.append(v[key])
+      else:
+	new_dicts.append(d[key])
+      break;
+    print 'new_dicts: ' + str(new_dicts)
+
+    new_dicts2 = []
+    for d in new_dicts:
+      key = keys.pop(0)
+      print 'key: ' + key
+      if isinstance(d, list):
+	for v in d:
+	  new_dicts2.append(v[key])
+      else:
+	new_dicts2.append(d[key])
+      break;
+    print 'new_dicts2: ' + str(new_dicts2)
 
     rgx_values = re.compile(':\w+')
+    _value = str(new_dicts2)
     aux = str(_value)
     aux = aux.replace(' ','').replace('\'','').replace('"','')
     _values = rgx_values.findall(aux)
@@ -94,7 +127,7 @@ def query_by_keys(keys, data=None):
       result.append(r.replace(':',''))
     return result
   except (TypeError, KeyError,NameError):
-    print sys.exc_info()[0]
+    print sys.exc_info()
     return []
 
 
