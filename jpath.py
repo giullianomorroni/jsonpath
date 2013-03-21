@@ -6,13 +6,6 @@ import re
 import json
 import sys
 
-#data_example = '{"id":1, "name":"Giulliano", "age":30, "parentes": [{"id":2, "name":"Joyce", "age":28, "parentes": [{"id":3, "name":"Soraya", "age":50}]}]}'
-
-#data_example = ''
-#data_example += '[{"id":1, "name":"Giulliano", "age":30, "parentes": [{"id":2, "name":"Joyce", "age":28}]},'
-#data_example += '{"id":1, "name":"Yuri", "age":25, "parentes": [{"id":2, "name":"Eduardo", "age":50}]},'
-#data_example += '{"id":1, "name":"Soraya", "age":30, "parentes": [{"id":2, "name":"Joyce", "age":28}]}]'
-
 def all_keys():
   '''
     pt_BR: Retorna todas as cahves do documento
@@ -80,45 +73,41 @@ def query_by_keys(keys, data=None):
     _value = json_data
 
     dicts = []
-    while(True):
+
+    key = keys.pop(0)
+    #Se a primeira chave for vazia, pega a próxima
+    #Isto ocorre dependendo do uso do $ para uma palavra
+    if key == '':
       key = keys.pop(0)
-      if key == '': continue
-      print 'key: ' + key
-      _value = _value[key]
-      if isinstance(_value, list):
-	for v in _value:
-	  dicts.append(v)
-      else:
-	dicts.append(_value)
-      break;
+
+    print 'key: ' + key
+    _value = _value[key]
+    if isinstance(_value, list):
+      for v in _value:
+	dicts.append(v)
+    else:
+      dicts.append(_value)
     print 'dicts: ' + str(dicts)
 
+    ttl_keys = len(keys)
     new_dicts = []
-    for d in dicts:
-      key = keys.pop(0)
-      print 'key: ' + key
-      if isinstance(d, list):
-	for v in d:
-	  new_dicts.append(v[key])
-      else:
-	new_dicts.append(d[key])
-      break;
-    print 'new_dicts: ' + str(new_dicts)
-
-    new_dicts2 = []
-    for d in new_dicts:
-      key = keys.pop(0)
-      print 'key: ' + key
-      if isinstance(d, list):
-	for v in d:
-	  new_dicts2.append(v[key])
-      else:
-	new_dicts2.append(d[key])
-      break;
-    print 'new_dicts2: ' + str(new_dicts2)
+    for i in range(0, ttl_keys):
+      new_dicts = []
+      for d in dicts:
+	key = keys.pop(0)
+	print 'key: ' + key
+	if isinstance(d, list):
+	  for v in d:
+	    new_dicts.append(v[key])
+	else:
+	  new_dicts.append(d[key])
+	print 'new_dicts: ' + str(new_dicts)
+      if isinstance(dicts, dict):
+	dicts.clear()
+      dicts = new_dicts
 
     rgx_values = re.compile(':\w+')
-    _value = str(new_dicts2)
+    _value = str(new_dicts)
     aux = str(_value)
     aux = aux.replace(' ','').replace('\'','').replace('"','')
     _values = rgx_values.findall(aux)
@@ -126,7 +115,7 @@ def query_by_keys(keys, data=None):
     for r in _values:
       result.append(r.replace(':',''))
     return result
-  except (TypeError, KeyError,NameError):
+  except (TypeError, KeyError, NameError):
     print sys.exc_info()
     return []
 
