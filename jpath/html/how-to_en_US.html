@@ -1,0 +1,159 @@
+<html>
+<body>
+
+  <h3>Selecting Nodes</h3>
+  XPath uses path expressions to select nodes in an XML document. The node is selected by following a path or steps. The most useful path expressions are listed below:
+  <table class="reference">
+    <tbody>
+      <tr>
+	  <th width="25%" valign="top" align="left">Expression</th>
+      <th valign="top" align="left">Description</th>
+      </tr>
+      <tr>
+	<td valign="top"><i>keyname</i></td>
+	<td valign="top">Selects all VALUES with the KEY "<i>keyname</i>" no matter where they are</td>
+      </tr>
+      <tr>
+	<td valign="top">$</td>
+	<td valign="top">Selects VALUES in the document from the current KEY, respecting path. </td>
+      </tr>
+      <tr>
+	<td valign="top">$$</td>
+	<td valign="top">Selects VALUES in the document for last KEY, respecting path and its parents</td>
+      </tr>
+      <tr>
+	<td valign="top">_LK or _lk</td>
+	<td valign="top">List Keys (all of them), like a 'set' not a 'list'</td>
+      </tr>
+      <tr>
+	<td valign="top">_LV or _lv</td>
+	<td valign="top">List Values (all of them), like a 'list'</td>
+      </tr>
+      <tr>
+	<td valign="top">_TG or _tg</td>
+	<td valign="top">Convert your document To Graph image</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/><br/>
+
+  In the table below we have listed some path expressions and the result of the expressions:
+  <table class="reference">
+    <tbody>
+      <tr>
+	<th width="25%" valign="top" align="left">Path Expression</th>
+	<th valign="top" align="left">Documen Example</th>
+	<th valign="top" align="left">Result</th>
+      </tr>
+      <tr>
+		<td valign="top">bookstore</td>
+		<td valign="top"> {"bookstore":"amazon"} </td>
+		<td valign="top">amazon</td>
+      </tr>
+      <tr>
+		<td valign="top">bookstore</td>
+		<td valign="top"> {"bookstore":[ {"book":{"name":"jpath"}}, {"book":{"name":"jquery"}}]}</td>
+		<td valign="top">jpath, jquery</td>
+      </tr>      
+      <tr>
+		<td valign="top">$bookstore$book$name</td>
+		<td valign="top"> {"bookstore":[ {"book":{"name":"jpath", "id":1}} ]} </td>
+		<td valign="top">jpath</td>
+      </tr>
+      <tr>
+		<td valign="top">_lk</td>
+		<td valign="top"> {"bookstore":[ {"book":{"name":"jpath", "id":1}} ]} </td>
+		<td valign="top">bookstore, book, name, id</td>
+      </tr>
+      <tr>
+		<td valign="top">_lv</td>
+		<td valign="top"> {"bookstore":[ {"book":{"name":"jpath", "id":1}} ]} </td>
+		<td valign="top">jpath, 1</td>
+      </tr>
+      <tr>
+		<td valign="top">_tg</td>
+		<td valign="top"> {"bookstore":[ {"book":{"name":"jpath", "id":1}} ]} </td>
+		<td valign="top"> <#> not yet implemented <#> </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/><br/>
+
+  <h3>Predicates</h3>
+  Predicates are used to find a specific node or a node that contains a specific value.
+  Predicates are always embedded in square brackets.
+  In the table below we have listed some path expressions with predicates and the result of the expressions:
+  <table class="reference">
+    <tbody>
+      <tr>
+	<th width="40%" valign="top" align="left">Path Expression</th>
+	<th valign="top" align="left">Result</th>
+      </tr>
+      <tr>
+	<td valign="top">/bookstore/book[1] </td>
+	<td valign="top">Selects the first book element that is the child of the 
+	  bookstore element.<p><b>Note:</b> IE5 and later has implemented that [0] should be the first node, 
+	  but according to the W3C standard it should have been [1]!!</p>
+	</td>
+      </tr>
+      <tr>
+	<td valign="top">/bookstore/book[last()]</td>
+	<td valign="top">Selects the last book element that is the child of the bookstore element</td>
+      </tr>
+      <tr>
+	<td valign="top">/bookstore/book[last()-1]</td>
+	<td valign="top">Selects the last but one book element that is the child of the  bookstore element</td>
+      </tr>
+      <tr>
+	<td valign="top">/bookstore/book[position()&lt;3]</td>
+	<td valign="top">Selects the first two book elements that are children of the bookstore element</td>
+      </tr>
+      <tr>
+	<td valign="top">//title[@lang]</td>
+	<td valign="top">Selects all the title elements that have an attribute named lang</td>
+      </tr>
+      <tr>
+	<td valign="top">//title[@lang='eng']</td>
+	<td valign="top">Selects all the title elements that have an attribute named lang with a value of 'eng'</td>
+      </tr>
+      <tr>
+	<td valign="top">/bookstore/book[price&gt;35.00]</td>
+	<td valign="top">Selects all the book elements of the bookstore element that have a price element with a value greater than 35.00</td>
+      </tr>
+      <tr>
+	<td valign="top">/bookstore/book[price&gt;35.00]/title</td>
+	<td valign="top">Selects all the title elements of the book elements of the bookstore element that have a price element with a value greater than 35.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/><br/>
+
+  <h3>Selecting Several Paths</h3>
+  By using the | operator in an XPath expression you can select several paths.
+  In the table below we have listed some path expressions and the result of the expressions:
+  <table class="reference">
+    <tbody>
+      <tr>
+	<th width="40%" valign="top" align="left">Path Expression</th>
+	<th valign="top" align="left">Result</th>
+      </tr>
+      <tr>
+	<td valign="top">//book/title | //book/price</td>
+	<td valign="top">Selects all the title AND price elements of all book elements</td>
+      </tr>
+      <tr>
+	<td valign="top">//title | //price</td>
+	<td valign="top">Selects all the title AND price elements in the document</td>
+      </tr>
+      <tr>
+	<td valign="top">/bookstore/book/title | //price</td>
+	<td valign="top">Selects all the title elements of the book element of the bookstore element AND all the price elements in the document</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

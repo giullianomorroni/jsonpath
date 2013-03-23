@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+
+<head>
+    <title>Json XPath</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="title" content="Json XPath" />
+    <meta name="description" content="XPath search for json documents" />
+    <meta content="pt" http-equiv="Content-Language" />
+    <meta content="0" http-equiv="Expires" />
+    <meta content="no-cache, must-revalidate" http-equiv="Cache-Control" />
+    <meta content="no-cache" http-equiv="Pragma" />
+    <meta name="revisit-after" content="3 days" />
+    <meta name="author" content="Giulliano Morroni" />
+    <meta name="language" content="portuguese" />
+    <meta name="distribution" content="Global" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="General" />
+    <meta name="geo.country" content="Brasil" />
+    <meta name="dc.language" content="pt_BR" />
+</head>
+
+<html>
+  <body>
+    <div id="divPrincipal" style="border:0px solid #000000; margin-left: -460px; margin-top: -360px; width: 900px; height:680px; left:50%; top:50%; position: absolute;">
+      O que é...
+      <div id="divCentral" style="border:1px solid #000000; margin: 5px 10px 0px 3px; width:850px; height:700px; position: absolute;absolute;border-radius: 25px;">
+		<br/><br/>
+	
+		<a href="/how_to/en">how-to (in one minute)</a>
+		<a href="/how_to/pt">tutorial (aprenda em um minuto)</a>
+		<br/><br/>
+	
+		<form action="/query/" method="post">
+			{% csrf_token %}
+			Place your json:
+			<textarea rows="10" name="data" id="data" cols="100" placeholder="{ results:[id:1, id:2, id:3] }">{{data}}</textarea>
+			<br/><br/>
+			Type your query: <input type="text" name="query" id="query" placeholder="$results$id" size="100" value="{{query}}">
+			<br/><br/>
+		</form>
+
+		<br/><br/>
+
+		Result:
+		<div id="result" style="margin-left: 10px;">
+			{% for r in result %}
+				{{ r }} <br>
+			{% endfor %}
+		</div>
+
+      </div>
+    </div>
+  </body>
+</html>
