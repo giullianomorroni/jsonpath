@@ -5,7 +5,8 @@ Created on 22/03/2013
 @author: giulliano
 '''
 
-import json_path as jpath 
+import json_path as jpath
+import ast 
 
 class QueryParser(object):
     '''
@@ -17,6 +18,8 @@ class QueryParser(object):
         result = []
         print 'data: ' + str(data)
         print 'query: ' + str(query)
+        data = str(data)
+        data = ast.literal_eval(data)
 
         if query.lower() == '_lv':
             print 'method: all_values'

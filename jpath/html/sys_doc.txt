@@ -1,0 +1,9 @@
+simple 
+	{key:value}
+	
+simple array
+	{key: [values,values,values]}
+	
+	{key: {key : [values,values,values]}}
+
+	{key: {key : [ {k:v}, {k:v}, {k:v} ]}}

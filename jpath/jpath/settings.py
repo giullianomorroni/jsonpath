@@ -110,7 +110,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/run/media/giulliano/Desenvolvimento/workspace/python/jpath/html/'
+    '/run/media/giulliano/Desenvolvimento/workspace/python/jsonpath/jpath/html/'
 )
 
 INSTALLED_APPS = (
