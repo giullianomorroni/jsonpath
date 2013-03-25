@@ -49,7 +49,8 @@ def extraxt_keys(data, key, result, parent=None):
     for k in key:
 	if parent != None:
 	  if isinstance(key, list):
-	    result += [parent + ':' + key[0]]
+	    #aqui ta fd.....
+	    result += [parent + ':' + [x for x in key]]
 	  else:
 	    result += [parent + ':' + key]
 	else:
@@ -60,12 +61,17 @@ def extraxt_keys(data, key, result, parent=None):
         print 'v: ' + str(v)
         print 'result: ' + str(result)
 
+	if parent != None:
+	  actual_parent = parent + ':' + k;
+	else:
+	  actual_parent = k;
+
         if isinstance(v, dict):
-            extraxt_keys(v, v.keys(), result, k)
+            extraxt_keys(v, v.keys(), result, actual_parent)
         elif isinstance(v, list):
             for l in v:
                 if isinstance(l, dict):
-                    extraxt_keys(l, l.keys(), result, k)
+                    extraxt_keys(l, l.keys(), result, actual_parent)
     return result
 
 def extraxt_values(data, keys, result):
