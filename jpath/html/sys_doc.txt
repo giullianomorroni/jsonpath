@@ -1,3 +1,4 @@
+
 simple 
 	{key:value}
 	
@@ -7,3 +8,7 @@ simple array
 	{key: {key : [values,values,values]}}
 
 	{key: {key : [ {k:v}, {k:v}, {k:v} ]}}
+
+	
+Estrutura de cada nó:
+  {chave, valor, parent}

@@ -43,18 +43,29 @@ def query_by_keys(keys, data=None):
 def query_list_by_keys(keys, data=None):
     pass
 
-
-
-def extraxt_keys(data, keys, result):
-    result += keys
-    for k in keys:
+def extraxt_keys(data, key, result, parent=None):
+    print 'parent: ' + str(parent)
+    print 'key: ' + str(key)
+    for k in key:
+	if parent != None:
+	  if isinstance(key, list):
+	    result += [parent + ':' + key[0]]
+	  else:
+	    result += [parent + ':' + key]
+	else:
+	  result += key
         v = data[k]
+
+        print 'k: ' + str(k)
+        print 'v: ' + str(v)
+        print 'result: ' + str(result)
+
         if isinstance(v, dict):
-            extraxt_keys(v, v.keys(), result)
+            extraxt_keys(v, v.keys(), result, k)
         elif isinstance(v, list):
             for l in v:
                 if isinstance(l, dict):
-                    extraxt_keys(l, l.keys(), result)
+                    extraxt_keys(l, l.keys(), result, k)
     return result
 
 def extraxt_values(data, keys, result):
