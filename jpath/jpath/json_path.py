@@ -3,68 +3,49 @@
 # XPATH PARA XML - http://www.w3schools.com/xpath/xpath_syntax.asp
 
 import networkx
-import sys
 import json
-
 
 def indent(data):
     return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
 
-def all_keys(data):
-    '''
-      pt_BR: Retorna todas as chaves do documento
-      en_US: Return all keys from document
-    '''
-    keys = data.keys()
-    result = []
-    result = extraxt_keys(data, keys, result)
-    return result
-
-def all_values(data):
-    '''
-      pt_BR: Retorna todos os valores do documento
-      en_US: Return all values from document
-    '''
-    keys = data.keys()
-    result = []
-    result = extraxt_values(data, keys, result)
-    return result
-
 def all_values_for_key(key, data):
     pass
 
-def query_by_keys(keys, data=None):
+def query_by_keys(keys, graph):
     '''
       pt_BR: Retorna os valores de acordo com o caminho ( ie.: cliente$nome$ )
       en_US: Returns values ​​in accordance with path ( ie.: cliente$nome$ )
     '''
-    pass
+    all_keys = keys.split(':')
+    k = all_keys.pop(0)
+    if k == '': k = all_keys.pop(0)
+
+    if not graph.node.__contains__(k):
+        return []
+
+    node = graph.node[k]
+    #continua daqui
+        
 
 def query_list_by_keys(keys, data=None):
     pass
 
 def extraxt_keys(data, key, result, parent=None):
-    print 'parent: ' + str(parent)
-    print 'key: ' + str(key)
     for k in key:
-	if parent != None:
-	  if isinstance(key, list):
-	    #aqui ta fd.....
-	    result += [parent + ':' + [x for x in key]]
-	  else:
-	    result += [parent + ':' + key]
-	else:
-	  result += key
+        if parent != None:
+            if isinstance(key, list):
+                for x in key:
+                    result += [parent + ':' + x + ':']
+            else:
+                result += [parent + ':' + key + ':']
+        else:
+            result += [key[0] + ':']
         v = data[k]
 
-        print 'k: ' + str(k)
-        print 'v: ' + str(v)
-        print 'result: ' + str(result)
-
-	if parent != None:
-	  actual_parent = parent + ':' + k;
-	else:
-	  actual_parent = k;
+        if parent != None:
+            actual_parent = parent + ':' + k;
+        else:
+            actual_parent = k;
 
         if isinstance(v, dict):
             extraxt_keys(v, v.keys(), result, actual_parent)
@@ -74,15 +55,17 @@ def extraxt_keys(data, key, result, parent=None):
                     extraxt_keys(l, l.keys(), result, actual_parent)
     return result
 
-def extraxt_values(data, keys, result):
-    for k in keys:
-        v = data[k]
-        if isinstance(v, dict):
-            extraxt_values(v, v.keys(), result)
-        elif isinstance(v, list):
-            for l in v:
+def extraxt_values(data, key, result, parent = None):
+    for k in key:
+        value = data[k]
+
+        if isinstance(value, dict):
+            extraxt_values(value, value.keys(), result, k)
+        elif isinstance(value, list):
+            for l in value:
                 if isinstance(l, dict):
-                    extraxt_values(l, l.keys(), result)
+                    extraxt_values(l, l.keys(), result, k)
         else:
-            result.append(v)
+            result.append(value)
     return result
+

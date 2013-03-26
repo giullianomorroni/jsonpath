@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 from django.shortcuts import render_to_response
-from query_parser import QueryParser
+from parser.query_parser import QueryParser
 from django.views.decorators.csrf import requires_csrf_token
 from django.template import RequestContext
 

@@ -11,30 +11,30 @@ class Test(unittest.TestCase):
     def testCase1_AllKeys(self):
         data = {"bookstore": [ {"book":{"name":"jpath"}}, {"book":{"name":"jquery"}} ] }
         keys = jpath.all_keys(data)
-        self.assertTrue(keys.__contains__('bookstore'))
-        self.assertTrue(keys.__contains__('book'))
-        self.assertTrue(keys.__contains__('name'))
+        self.assertTrue(keys.__contains__('bookstore:'))
+        self.assertTrue(keys.__contains__('bookstore:book:'))
+        self.assertTrue(keys.__contains__('bookstore:book:name:'))
 
     def testCase2_AllKeys(self):
         data = {"bookstore": {"book":{"name":"jpath"}} }
         keys = jpath.all_keys(data)
-        self.assertTrue(keys.__contains__('bookstore'))
-        self.assertTrue(keys.__contains__('book'))
-        self.assertTrue(keys.__contains__('name'))
+        self.assertTrue(keys.__contains__('bookstore:'))
+        self.assertTrue(keys.__contains__('bookstore:book:'))
+        self.assertTrue(keys.__contains__('bookstore:book:name:'))
 
     def testCase3_AllKeys(self):
         data = {"bookstore": ["jpath"] }
         keys = jpath.all_keys(data)
-        self.assertTrue(keys.__contains__('bookstore'))
+        self.assertTrue(keys.__contains__('bookstore:'))
 
     def testCase4_AllKeys(self):
         data = {"bookstore": [ {"books": [{"name":"jpath", "authors": [ {"author": "joe"} ]}, {"name":"jquery"}] }] }
         keys = jpath.all_keys(data)
-        self.assertTrue(keys.__contains__('bookstore'))
-        self.assertTrue(keys.__contains__('books'))
-        self.assertTrue(keys.__contains__('name'))
-        self.assertTrue(keys.__contains__('authors'))
-        self.assertTrue(keys.__contains__('author'))
+        self.assertTrue(keys.__contains__('bookstore:'))
+        self.assertTrue(keys.__contains__('bookstore:books:'))
+        self.assertTrue(keys.__contains__('bookstore:books:name:'))
+        self.assertTrue(keys.__contains__('bookstore:books:authors:'))
+        self.assertTrue(keys.__contains__('bookstore:books:authors:author:'))
         
     def testCase1_AllValues(self):
         data = {"bookstore": [ {"books": [{"name":"jpath", "authors": [ {"author": "joe"} ]}, {"name":"jquery"}] }] }
