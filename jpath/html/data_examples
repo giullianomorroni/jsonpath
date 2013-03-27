@@ -1,18 +1,8 @@
 {"bookstore": [{"book":{"name":"jpah"}}, {"book":{"name":"jquery"}}]}
 
 
-{"bookstore":
-  [ 
-    {"book":
-      {"name":"jpah", "price":10.00, "author":"wrong_test1", authors:
-	[ 
-	  {"author":"jon"}, {"author":"maria"}
-	]
-      }
-    }
-  ],
-  "author":"wrong_test2"
-}
+{{"bookstore":[{"book": {"name":"jpah", "price":10.00, "author":"wrong_test1", "authors": [ {"author":"jon"}, {"author":"maria"}]}]}
+
 
 
 [

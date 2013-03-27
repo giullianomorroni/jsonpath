@@ -17,6 +17,7 @@ def query(request):
     query = request.POST['query']
     parser = QueryParser()
     result = parser.parse(query, data)
+    data = indent(data)
     return render_to_response('index.html', {'result':result, 'data':data, 'query':query}, context_instance=RequestContext(request));
 
 def home(request):
@@ -27,3 +28,9 @@ def how_to_en(request):
 
 def how_to_pt(request):
     return render_to_response('how-to_pt_BR.html');
+
+
+def indent(data):
+    return data
+    #import json
+    #return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
