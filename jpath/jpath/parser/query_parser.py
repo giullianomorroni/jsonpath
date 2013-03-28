@@ -9,7 +9,8 @@ import jpath.json_path as jpath
 import jpath.extractor.values_extractor as values_ex
 import jpath.extractor.keys_extractor as keys_ex
 import jpath.extractor.graph_extractor as graph_ex
-import json 
+import json
+import ast
 
 class QueryParser(object):
     '''
@@ -19,10 +20,9 @@ class QueryParser(object):
 
     def parse(self, query, data):
         result = []
-        print 'data: ' + str(data)
-        print 'query: ' + str(query)
+        print 'data: ' + data
+        print 'query: ' + query
         data = json.loads(str(data))
-        #data = json.dumps(ld)
 
         if query.lower() == '_lv':
             print 'method: all_values'
@@ -45,16 +45,13 @@ class QueryParser(object):
             result = ['not yet implemented']
                     
         elif query.__contains__(':'):
-            #keys = query.split(':')
-            #if len(keys) == 2:
-            #    print 'method: all_values_for_key'
-            #    result = jpath.all_values_for_key(query, data)
-            #else:
             print 'method: query_by_keys'
-            result = [graph_ex.query_by_keys(query, data)]
+            r = graph_ex.query_by_keys(query, data)
+            for x in r:
+                aux = ast.literal_eval(x)
+                result.append(aux)
         else:
             print 'method: all_values_for_key'
             result = jpath.all_values_for_key(query, data)
 
-        print 'result: ' + str(result)
         return result

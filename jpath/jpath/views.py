@@ -16,8 +16,22 @@ def query(request):
     data = request.POST['data']
     query = request.POST['query']
     parser = QueryParser()
-    result = parser.parse(query, data)
+    tmp = parser.parse(query, data)
     data = indent(data)
+
+    result = []
+    for t in tmp:
+        if isinstance(t, dict):
+            for key in t:
+                result.append( str(key) + ':' + str(t[key]) )
+        elif isinstance(t, list):
+            for t2 in t:
+                if isinstance(t2, dict):
+                    for key in t2:
+                        result.append( str(key) + ':' + str(t2[key]) )
+        else:
+            result.append( str(t) )
+
     return render_to_response('index.html', {'result':result, 'data':data, 'query':query}, context_instance=RequestContext(request));
 
 def home(request):

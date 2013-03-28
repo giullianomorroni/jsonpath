@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 from jpath.graph.GraphSearch import graph_search
 
+G = networkx.Graph()
 
 def query_by_keys(keys, data):
     '''
@@ -33,6 +34,8 @@ def query_by_keys(keys, data):
         node = gs.search_node(k2, graph);
         k = k2
         if len(all_keys) == 0: break
+    G.clear()
+    graph.clear()
     return node['data']['value']
 
 def make_graph(data):
@@ -47,31 +50,33 @@ def make_graph(data):
     plt.savefig("/tmp/simple_path.png") # save as png
     return result
 
-G = networkx.Graph()
 def create_graph(data, key, parent = None):
     for k in key:
         value = data[k]
-
+        arr = []
         if parent != None:
-
             if G.node.__contains__(str(k)) and G.node[str(k)]['data']['parent'] == parent:
-                aux = G.node[str(k)]
-                aux['data']['value'] += str(value)
-                G.add_node(str(k), data={ "value":aux['data']['value'], "parent":str(parent) })
+                aux_node = G.node[str(k)]
+                actual_value = aux_node['data']['value']
+                actual_value.append(str(value))
+                G.add_node(str(k), data={ "value":actual_value, "parent":str(parent) })
                 G.add_edge(parent, str(k))
             else:
-                G.add_node(str(k), data={ "value":str(value), "parent":str(parent) })
+                arr.append(str(value))
+                G.add_node(str(k), data={ "value":arr, "parent":str(parent) })
                 G.add_edge(parent, str(k))
         else:
             if G.node.__contains__(str(k)):
-                aux = G.node[str(k)]
-                aux['data']['value'] =+ str(value)
-                G.add_node(str(k), data={ "value":aux['data']['value'], "parent":str(parent) })
+                aux_node = G.node[str(k)]
+                actual_value = aux_node['data']['value']
+                actual_value.append(str(value))
+                G.add_node(str(k), data={ "value":actual_value, "parent":str(parent) })
             else:
-                G.add_node(str(k), data={ "value":str(value), "parent":str(parent) })
+                arr.append(str(value))
+                G.add_node(str(k), data={ "value":arr, "parent":str(parent) })
 
-        print 'nodes: ' + str(G.nodes(data=True))
-        print 'edges: ' + str(G.edges())
+        #print 'nodes: ' + str(G.nodes(data=True))
+        #print 'edges: ' + str(G.edges())
 
         if isinstance(value, dict):
             create_graph(value, value.keys(), k)

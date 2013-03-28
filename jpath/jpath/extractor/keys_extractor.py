@@ -9,7 +9,6 @@ def all_keys(data):
     keys = data.keys()
     result = []
     result = extraxt_keys(data, keys, result)
-    print 'result: ' + str(result)
     return result
 
 def extraxt_keys(data, key, result, parent=None):

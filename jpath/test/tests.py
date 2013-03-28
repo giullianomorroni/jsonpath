@@ -41,7 +41,6 @@ class Test(unittest.TestCase):
     def testCase1_AllValues(self):
         data = {"bookstore": [ {"books": [{"name":"jpath", "authors": [ {"author": "joe"} ]}, {"name":"jquery"}] }] }
         values = values_extractor.all_values(data)
-        print values
         self.assertTrue(values.__contains__('jpath'))
         self.assertTrue(values.__contains__('joe'))
         self.assertTrue(values.__contains__('jquery'))
@@ -49,9 +48,16 @@ class Test(unittest.TestCase):
     def testCase1_QueryByKeys(self):
         data = {"bookstore": [ {"books": [{"name":"jpath", "authors": [ {"author": "joe"} ]}, {"name":"jquery"}] }] }
         values = graph_extractor.query_by_keys('bookstore:books', data);
-        values = values.replace('\'', '"')
+        st_values = str(values)
+        st_values = st_values.replace('\'', '"')
+        self.assertTrue(st_values.__contains__('[{"name": "jpath", "authors": [{"author": "joe"}]}, {"name": "jquery"}]'))
+
+    def testCase2_QueryByKeys(self):
+        data = {"bookstore": [ {"books": [{"name":"jpath", "authors": [ {"author": "joe"} ]}, {"name":"jquery"}] }] }
+        values = graph_extractor.query_by_keys('bookstore:books:name', data);
         print values
-        self.assertTrue(values.__contains__('[{"name": "jpath", "authors": [{"author": "joe"}]}, {"name": "jquery"}]'))
+        self.assertTrue(values.__contains__('jquery'))
+        self.assertTrue(values.__contains__('jpath'))
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

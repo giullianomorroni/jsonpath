@@ -8,7 +8,6 @@ def all_values(data):
     keys = data.keys()
     result = []
     result = extraxt_values(data, keys, result)
-    print 'result: ' + str(result)
     return result
 
 def extraxt_values(data, key, result, parent = None):
