@@ -22,34 +22,73 @@
 
 <html>
   <body>
-    <div id="divPrincipal" style="border:0px solid #000000; margin-left: -460px; margin-top: -360px; width: 900px; height:680px; left:50%; top:50%; position: absolute;">
-      O que é...
-      <div id="divCentral" style="border:1px solid #000000; margin: 5px 10px 0px 3px; width:850px; height:700px; position: absolute;absolute;border-radius: 25px;">
-		<br/><br/>
-	
-		<a href="/how_to/en">how-to (in one minute)</a>
-		<a href="/how_to/pt">tutorial (aprenda em um minuto)</a>
-		<br/><br/>
-	
-		<form action="/query/" method="post">
-			{% csrf_token %}
-			Place your json:
-			<textarea rows="10" name="data" id="data" cols="100" placeholder="{ results:[id:1, id:2, id:3] }">{{data}}</textarea>
-			<br/><br/>
-			Type your query: <input type="text" name="query" id="query" placeholder="$results$id" size="100" value="{{query}}">
-			<br/><br/>
-		</form>
+    <div id="divPrincipal" style="border:0px solid #000000; margin-left: -460px; margin-top: -360px; width: 900px; left:50%; top:50%; position: absolute;">
+      <h3>O que é:</h3>
+      JPath é uma linguagem para busca de chaves e valores em documentos JSON, inspiranda na especificação do XPath 
+      (linguagem de consulta para documentos XML baseado em "caminhos").
+      <br/>
+      <a href="/how_to/en">how-to (in one minute)</a><br/>
+      <a href="/how_to/pt">tutorial (aprenda em um minuto)</a><br/>
 
+      <div id="divCentral" style="border:1px solid #000000; margin: 100px 10px 0px 3px; width:850px; height:450px; position: relative;border-radius: 25px;">
+	<br/><br/>
+	<form action="/query/" method="post">
+		{% csrf_token %}
+		Place your json:
+		<textarea rows="10" name="data" id="data" cols="100" placeholder="{ results:[id:1, id:2, id:3] }">{{data}}</textarea>
 		<br/><br/>
-
-		Result:
-		<div id="result" style="margin-left: 10px;">
-			{% for r in result %}
-				{{ r }} <br>
-			{% endfor %}
-		</div>
-
+		Type your query: <input type="text" name="query" id="query" placeholder="$results$id" size="100" value="{{query}}">
+		<br/><br/>
+	</form>
+	<br/>
+	Result:
+	<div id="result" style="margin-left: 10px;">
+	    {% for r in result %}
+		    {{ r }} <br>
+	    {% endfor %}
+	</div>
       </div>
+      
+      <div style="border:1px solid #000000; margin: 100px 10px 0px 3px; width:850px; position: relative;border-radius: 25px;">
+	<h3>Um pouco mais sobre XML e JSON:</h3>
+	Diferente do formato XML o JSON é dinâmico, não possui regras quanto ao caminho. Entenda por caminho uma relação pai/filho, por exemplo:
+
+	<br/>
+	<textarea rows="6" cols="30" readonly="readonly">
+	<pessoa>
+	  <dados>
+	    <nome> Giulliano <nome>
+	    <idade> 20 </idade>
+	  </dados>
+	</pessoa>
+	</textarea>
+
+	<br/>
+	Neste exemplo que representa um formato XML, o caminho para se descobrir o nome é "pessoa:dados:nome" 
+	(<a href="http://pt.wikipedia.org/wiki/Grafo" target="_blank">teoria dos grafos</a>)
+
+	<br/>
+	Este mesmo exemplo em JSON seria:
+	{"pessoa": {"dados" : {"nome":"Giulliano", "idade":20} } }
+
+	<br/>
+	A diferença entre um e outro, é que um XML, normalmente, é acompanhado de um documento chamado de "Schmema". Cuja função é ditar a estrutura do XML. Ou seja, eu não poderia alterar a estrutura movendo o campo "nome" para fora do campo "dados"
+
+	<br/>
+	<textarea rows="4" cols="28" readonly="readonly">
+	<pessoa>
+	  <nome> Giulliano <nome>
+	  <idade> 20 </idade>
+	</pessoa>
+	</textarea>
+
+	<br/>
+	Já a estrutura JSON não possui um ditador, sua estrutura é livre, 
+	(<a href="http://www.json.org/" target="_blank"> respeitando as regras</a>) o que tornou este formato popular entre desenvolvedores de software.
+
+	<br/><br/>
+      </div>
+
     </div>
   </body>
 </html>
