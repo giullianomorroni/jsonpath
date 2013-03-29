@@ -47,7 +47,7 @@ def make_graph(data):
     result = create_graph(data, keys)
     pos = networkx.spring_layout(result)
     networkx.draw(result, pos, node_color='#A0CBE2', edge_color='#BB0000', width=2, with_labels=True)
-    plt.savefig("/tmp/simple_path.png") # save as png
+    plt.savefig("/var/www/graph/simple_path.png") # save as png
     return result
 
 def create_graph(data, key, parent = None):
