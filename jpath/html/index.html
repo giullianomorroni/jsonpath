@@ -30,7 +30,7 @@
       <a href="how_to/en">how-to (in one minute)</a><br/>
       <!--<a href="/how_to/pt">tutorial (aprenda em um minuto)</a><br/>-->
 
-      <div id="divCentral" style="border:1px solid #000000; margin: 80px 10px 0px 3px; width:850px; height:450px; position: relative;border-radius: 25px; padding: 10px;">
+      <div id="divCentral" style="border:1px solid #000000; margin: 40px 10px 0px 3px; width:850px; height:450px; position: relative;border-radius: 25px; padding: 10px;">
 		<br/><br/>
 		<form action="/query/" method="post">
 			{% csrf_token %}
@@ -38,7 +38,8 @@
 			<textarea rows="10" name="data" id="data" cols="100" placeholder="{ results:[id:1, id:2, id:3] }">{{data}}</textarea>
 			<br/><br/>
 			Type your query: <input type="text" name="query" id="query" placeholder="$results$id" size="100" value="{{query}}">
-			<br/><br/>
+			<br/>
+			<input type="submit" value="consultar" />
 		</form>
 		<br/>
 		Result:
@@ -53,7 +54,7 @@
 		<h3>Um pouco mais sobre XML e JSON:</h3>
 		Diferente do formato XML o JSON é dinâmico, não possui regras quanto ao caminho. Entenda por caminho uma relação pai/filho, por exemplo:
 		<br/>
-		<textarea rows="6" cols="30" readonly="readonly">
+		<textarea rows="7" cols="34" readonly="readonly" style="border: none">
 <pessoa>
   <dados>
     <nome> Giulliano <nome>
@@ -66,22 +67,23 @@
 		Neste exemplo que representa um formato XML, o caminho para se descobrir o nome é "pessoa:dados:nome" 
 		(<a href="http://pt.wikipedia.org/wiki/Grafo" target="_blank">teoria dos grafos</a>)
 	
-		<br/>
-		Este mesmo exemplo em JSON seria:
-		{"pessoa": {"dados" : {"nome":"Giulliano", "idade":20} } }
+		<br/><br/>
+		Este mesmo exemplo em JSON seria:<br/>
+
+		<b>{"pessoa": {"dados" : {"nome":"Giulliano", "idade":20} } }</b>
 	
-		<br/>
+		<br/><br/>
 		A diferença entre um e outro, é que um XML, normalmente, é acompanhado de um documento chamado de "Schmema". Cuja função é ditar a estrutura do XML. Ou seja, eu não poderia alterar a estrutura movendo o campo "nome" para fora do campo "dados"
 	
 		<br/>
-		<textarea rows="4" cols="28" readonly="readonly">
+		<textarea rows="4" cols="34" readonly="readonly" style="border: none">
 <pessoa>
 	<nome> Giulliano <nome>
 	<idade> 20 </idade>
 </pessoa>
 		</textarea>
 
-		<br/>
+		<br/><br/>
 		Já a estrutura JSON não possui um ditador, sua estrutura é livre, o que tornou este formato popular entre desenvolvedores de software.
       </div>
     </div>
