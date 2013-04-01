@@ -13,7 +13,7 @@ def query_by_keys(keys, data):
       en_US: Returns values ​​in accordance with path ( ie.: cliente$nome$ )
     '''
 
-    graph = make_graph(data)
+    graph = draw_graph(data)
 
     gs = graph_search()
     all_keys = keys.split(':')
@@ -38,13 +38,20 @@ def query_by_keys(keys, data):
     graph.clear()
     return node['data']['value']
 
-def make_graph(data):
+def draw_graph(data):
     '''
       pt_BR: Retorna um grafico do documento
       en_US: Return a graph from document
     '''
-    keys = data.keys()
-    result = create_graph(data, keys)
+    if isinstance(data, list):
+        result = []
+        for aux in data:
+            keys = aux.keys()
+            result = create_graph(aux, keys)
+            #break
+    else:
+        keys = data.keys()
+        result = create_graph(data, keys)
     pos = networkx.spring_layout(result)
     networkx.draw(result, pos, node_color='#A0CBE2', edge_color='#BB0000', width=2, with_labels=True)
     plt.savefig("/var/www/graph/simple_path.png") # save as png
@@ -74,9 +81,6 @@ def create_graph(data, key, parent = None):
             else:
                 arr.append(str(value))
                 G.add_node(str(k), data={ "value":arr, "parent":str(parent) })
-
-        #print 'nodes: ' + str(G.nodes(data=True))
-        #print 'edges: ' + str(G.edges())
 
         if isinstance(value, dict):
             create_graph(value, value.keys(), k)

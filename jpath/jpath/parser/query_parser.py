@@ -10,7 +10,7 @@ import jpath.extractor.values_extractor as values_ex
 import jpath.extractor.keys_extractor as keys_ex
 import jpath.extractor.graph_extractor as graph_ex
 import json
-import ast
+#import ast
 
 class QueryParser(object):
     '''
@@ -43,13 +43,13 @@ class QueryParser(object):
         elif query.lower() == '_tg':
             print 'method: not yet implemented'
             result = ['not yet implemented']
-                    
+
         elif query.__contains__(':'):
             print 'method: query_by_keys'
             r = graph_ex.query_by_keys(query, data)
             for x in r:
-                aux = ast.literal_eval(x)
-                result.append(aux)
+                #aux = ast.literal_eval(x)
+                result.append(x)
         else:
             print 'method: all_values_for_key'
             result = jpath.all_values_for_key(query, data)

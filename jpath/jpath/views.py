@@ -29,6 +29,8 @@ def query(request):
                 if isinstance(t2, dict):
                     for key in t2:
                         result.append( str(key) + ':' + str(t2[key]) )
+                else:
+                    result.append( str(t2) )
         else:
             result.append( str(t) )
 
