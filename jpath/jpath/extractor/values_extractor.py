@@ -5,9 +5,15 @@ def all_values(data):
       pt_BR: Retorna todos os valores do documento
       en_US: Return all values from document
     '''
-    keys = data.keys()
     result = []
-    result = extraxt_values(data, keys, result)
+    if isinstance(data, list):
+        for d in data:
+            keys = d.keys()
+            extraxt_values(d, keys, result)
+            keys = None;
+    else:
+        keys = data.keys()
+        extraxt_values(data, keys, result)
     return result
 
 def extraxt_values(data, key, result, parent = None):
@@ -20,6 +26,8 @@ def extraxt_values(data, key, result, parent = None):
             for l in value:
                 if isinstance(l, dict):
                     extraxt_values(l, l.keys(), result, k)
+                else:
+                    result.append(l)
         else:
             result.append(value)
     return result

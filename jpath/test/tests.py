@@ -37,6 +37,16 @@ class Test(unittest.TestCase):
         self.assertTrue(keys.__contains__('bookstore:books:name:'))
         self.assertTrue(keys.__contains__('bookstore:books:authors:'))
         self.assertTrue(keys.__contains__('bookstore:books:authors:author:'))
+
+
+    def testCase5_AllKeys(self):
+        data = {"titulo": "JSON x XML","resumo": "o duelo de dois modelos de representa","ano": 2012,"genero": ["aventura", "romance"]}
+        keys = keys_extractor.all_keys(data)
+        self.assertTrue(keys.__contains__('titulo:'))
+        self.assertTrue(keys.__contains__('resumo:'))
+        self.assertTrue(keys.__contains__('ano:'))
+        self.assertTrue(keys.__contains__('genero:'))
+
         
     def testCase1_AllValues(self):
         data = {"bookstore": [ {"books": [{"name":"jpath", "authors": [ {"author": "joe"} ]}, {"name":"jquery"}] }] }
@@ -44,7 +54,16 @@ class Test(unittest.TestCase):
         self.assertTrue(values.__contains__('jpath'))
         self.assertTrue(values.__contains__('joe'))
         self.assertTrue(values.__contains__('jquery'))
-        
+
+    def testCase2_AllValues(self):
+        data = {"titulo": "JSON x XML","resumo": "o duelo de dois modelos","ano": 2012,"genero": ["aventura", "romance"]}
+        values = values_extractor.all_values(data)
+        self.assertTrue(values.__contains__('JSON x XML'))
+        self.assertTrue(values.__contains__('o duelo de dois modelos'))
+        self.assertTrue(values.__contains__(2012))
+        self.assertTrue(values.__contains__('aventura'))
+        self.assertTrue(values.__contains__('romance'))
+
     def testCase1_QueryByKeys(self):
         data = {"bookstore": [ {"books": [{"name":"jpath", "authors": [ {"author": "joe"} ]}, {"name":"jquery"}] }] }
         values = graph_extractor.query_by_keys('bookstore:books', data);

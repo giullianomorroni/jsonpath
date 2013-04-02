@@ -37,19 +37,25 @@
 			Place your json:
 			<textarea rows="10" name="data" id="data" cols="100" placeholder="{ results:[id:1, id:2, id:3] }">{{data}}</textarea>
 			<br/><br/>
-			Type your query: <input type="text" name="query" id="query" placeholder="$results$id" size="100" value="{{query}}">
-			<br/>
-			<input type="submit" value="consultar" />
+			Type your query: <input type="text" name="query" id="query" placeholder="$results$id" size="20" value="{{query}}">
+			<input type="submit" value="consultar" style="margin-left: 30px;"/>
 		</form>
-		<br/>
-		Result:
-		<div id="result" style="margin-left: 10px;">
-		    {% for r in result %}
-			    {{ r }} <br>
-		    {% endfor %}
-		    <br/><br/>
-		    <a href="./graph/simple_path.png">graph image</a>
-		</div>
+		
+		<div style="margin-left: 10px; width: 400px;">
+			<div id="result" style="width: 300px;position:absolute;">
+				<h4>Result: 
+					{% if url != None %}
+						(<a href="./graph/simple_path.png">graph image</a>)
+					{% endif %}
+				</h4>
+			    {% for r in result %}
+				    {{ r }} <br>
+			    {% endfor %}
+			</div>
+			<div id="graph" style="margin-left:350px; width: 100px;position:absolute;">
+			    
+			</div>
+		</div>	
       </div>
 
       <div style="border:1px solid #000000; margin: 10px 10px 0px 3px; width:850px; position: relative;border-radius: 25px; padding: 10px;">

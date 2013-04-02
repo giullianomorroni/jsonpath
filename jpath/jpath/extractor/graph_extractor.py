@@ -13,7 +13,7 @@ def query_by_keys(keys, data):
       en_US: Returns values ​​in accordance with path ( ie.: cliente$nome$ )
     '''
 
-    graph = draw_graph(data)
+    graph, url = draw_graph(data)
 
     gs = graph_search()
     all_keys = keys.split(':')
@@ -36,7 +36,7 @@ def query_by_keys(keys, data):
         if len(all_keys) == 0: break
     G.clear()
     graph.clear()
-    return node['data']['value']
+    return node['data']['value'], url
 
 def draw_graph(data):
     '''
@@ -54,8 +54,10 @@ def draw_graph(data):
         result = create_graph(data, keys)
     pos = networkx.spring_layout(result)
     networkx.draw(result, pos, node_color='#A0CBE2', edge_color='#BB0000', width=2, with_labels=True)
-    plt.savefig("/var/www/graph/simple_path.png") # save as png
-    return result
+    path = "/var/www/graph/simple_path.png"
+    url = "/graph/simple_path.png"
+    plt.savefig(path) # save as png
+    return result, url
 
 def create_graph(data, key, parent = None):
     for k in key:
