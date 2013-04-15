@@ -27,12 +27,12 @@
       JPath é uma linguagem para busca de chaves e valores em documentos JSON, inspiranda na especificação do XPath 
       (linguagem de consulta para documentos XML baseado em "caminhos").
       <br/>
-      <a href="./how_to/en">how-to (in one minute)</a><br/>
+      <a href="./json_path/how_to/en">how-to (in one minute)</a><br/>
       <!--<a href="/how_to/pt">tutorial (aprenda em um minuto)</a><br/>-->
 
       <div id="divCentral" style="border:1px solid #000000; margin: 40px 10px 0px 3px; width:850px; height:450px; position: relative;border-radius: 25px; padding: 10px;">
 		<br/><br/>
-		<form action="./query/" method="post">
+		<form action="./json_path/query/" method="post">
 			{% csrf_token %}
 			Place your json:
 			<textarea rows="10" name="data" id="data" cols="100" placeholder="{ results:[id:1, id:2, id:3] }">{{data}}</textarea>
@@ -48,7 +48,7 @@
 			    {{ r }} <br>
 		    {% endfor %}
 		    <br/><br/>
-		    <a href="./graph/simple_path.png">graph image</a>
+		    <a href="./json_path/graph/simple_path.png">graph image</a>
 		</div>
       </div>
 
