@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 def all_keys(data):
     '''
       pt_BR: Retorna todas as chaves do documento
