@@ -20,6 +20,7 @@ class QueryParser(object):
 
     def parse(self, query, data):
         result = []
+        url= None;
         print 'data: ' + data
         print 'query: ' + query
         data = json.loads(str(data))
@@ -46,7 +47,7 @@ class QueryParser(object):
 
         elif query.__contains__(':'):
             print 'method: query_by_keys'
-            r = graph_ex.query_by_keys(query, data)
+            r, url = graph_ex.query_by_keys(query, data)
             for x in r:
                 #aux = ast.literal_eval(x)
                 result.append(x)
@@ -54,4 +55,4 @@ class QueryParser(object):
             print 'method: all_values_for_key'
             result = jpath.all_values_for_key(query, data)
 
-        return result
+        return result, url

@@ -16,7 +16,7 @@ def query(request):
     data = request.POST['data']
     query = request.POST['query']
     parser = QueryParser()
-    tmp = parser.parse(query, data)
+    tmp, url = parser.parse(query, data)
     data = indent(data)
 
     result = []
@@ -34,7 +34,7 @@ def query(request):
         else:
             result.append( str(t) )
 
-    return render_to_response('index.html', {'result':result, 'data':data, 'query':query}, context_instance=RequestContext(request));
+    return render_to_response('index.html', {'result':result, 'data':data, 'query':query, 'url':url}, context_instance=RequestContext(request));
 
 def home(request):
     return render_to_response('index.html', context_instance=RequestContext(request));

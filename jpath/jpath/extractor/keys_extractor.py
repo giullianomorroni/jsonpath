@@ -6,9 +6,15 @@ def all_keys(data):
       pt_BR: Retorna todas as chaves do documento
       en_US: Return all keys from document
     '''
-    keys = data.keys()
     result = []
-    result = extraxt_keys(data, keys, result)
+    if isinstance(data, list):
+        for d in data:
+            keys = d.keys()
+            extraxt_keys(d, keys, result)
+            keys = None
+    else:
+        keys = data.keys()
+        extraxt_keys(data, keys, result)
     return result
 
 def extraxt_keys(data, key, result, parent=None):
@@ -20,9 +26,9 @@ def extraxt_keys(data, key, result, parent=None):
             else:
                 result += [parent + ':' + key + ':']
         else:
-            result += [key[0] + ':']
-        v = data[k]
+            result += [k + ':']
 
+        v = data[k]
         if parent != None:
             actual_parent = parent + ':' + k;
         else:

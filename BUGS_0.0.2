@@ -1,0 +1,94 @@
+#####################################################################################################
+#####################################################################################################
+
+BUG - 01 - CORRIGIDO 01_04_2013
+_lk para arrays retornando erro
+exemplo:
+[
+   {
+     "titulo": "JSON x XML",
+     "resumo": "o duelo de dois modelos de representa",
+     "ano": 2012,
+     "genero": ["aventura", "ao", "fico"]  
+    },
+   {
+     "titulo": "JSON James",
+     "resumo": "a historia de uma lenda do velho oeste",
+     "ano": 2012,
+     "genero": ["western"] 
+    }
+]
+retorna:
+Exception Type:	AttributeError
+Exception Value: 'list' object has no attribute 'keys'
+
+#####################################################################################################
+#####################################################################################################
+
+BUG - 02 - CORRIGIDO 01_04_2013
+_LK para um document retorna chaves erradas
+exemplo:
+{
+     "titulo": "JSON x XML",
+     "resumo": "o duelo de dois modelos de representa",
+     "ano": 2012,
+     "genero": ["aventura", "ao", "fico"]  
+}
+
+retorna:
+titulo: 
+titulo: 
+titulo: 
+titulo: 
+
+#####################################################################################################
+#####################################################################################################
+
+BUG - 03 - CORRIGIDO 01_04_2013
+_lv para arrays retornando erro
+exemplo:
+[
+   {
+     "titulo": "JSON x XML",
+     "resumo": "o duelo de dois modelos de",
+     "ano": 2012,
+     "genero": ["aventura", "ao", "fico"]  
+    },
+   {
+     "titulo": "JSON James",
+     "resumo": "a histria de uma lenda do velho oeste",
+     "ano": 2012,
+     "genero": ["western"] 
+    }
+]
+
+retorna:
+Exception Type:	AttributeError
+Exception Value: 'list' object has no attribute 'keys'
+
+#####################################################################################################
+#####################################################################################################
+
+BUG - 04 - CORRIGIDO 01_04_2013
+
+_lv não retorna valores de listas
+exemplo:
+   {
+     "titulo": "JSON x XML",
+     "resumo": "o duelo de dois modelos de",
+     "ano": 2012,
+     "genero": ["aventura", "ao", "fico"]  
+    }
+
+retorna:
+JSON x XML 
+2012 
+o duelo de dois modelos de 
+
+#####################################################################################################
+#####################################################################################################
+
+BUG - 05
+
+Palavras com acentuacao não estão funcionando
+
