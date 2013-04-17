@@ -21,6 +21,9 @@ class QueryParser(object):
     def parse(self, query, data):
         result = []
         url= None;
+
+        #FIXME problemas com encode
+        data = data.encode('ascii', 'ignore')
         print 'data: ' + data
         print 'query: ' + query
         data = json.loads(str(data))
