@@ -40,12 +40,12 @@
 			Type your query: <input type="text" name="query" id="query" placeholder="$results$id" size="20" value="{{query}}">
 			<input type="submit" value="consultar" style="margin-left: 30px;"/>
 		</form>
-		
+
 		<div style="margin-left: 10px; width: 400px;">
 			<div id="result" style="width: 300px;position:absolute;">
 				<h4>Result: 
 					{% if url != None %}
-						(<a href="./graph/simple_path.png">graph image</a>)
+						(<a href=" {{url}} ">graph image</a>)
 					{% endif %}
 				</h4>
 			    {% for r in result %}

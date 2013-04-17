@@ -42,14 +42,15 @@ class QueryParser(object):
             result = sorted(set(keys_ex.all_keys(data)))
 
         elif query.lower() == '_tg':
-            print 'method: not yet implemented'
-            result = ['not yet implemented']
+            print 'method: draw_graph'
+            result = graph_ex.draw_graph(data)
+            #print 'method: not yet implemented'
+            #result = ['not yet implemented']
 
         elif query.__contains__(':'):
             print 'method: query_by_keys'
             r, url = graph_ex.query_by_keys(query, data)
             for x in r:
-                #aux = ast.literal_eval(x)
                 result.append(x)
         else:
             print 'method: all_values_for_key'

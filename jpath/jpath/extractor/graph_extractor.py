@@ -2,6 +2,7 @@
 
 import networkx
 import matplotlib.pyplot as plt
+import time
 
 from jpath.graph.GraphSearch import graph_search
 
@@ -54,8 +55,9 @@ def draw_graph(data):
         result = create_graph(data, keys)
     pos = networkx.spring_layout(result)
     networkx.draw(result, pos, node_color='#A0CBE2', edge_color='#BB0000', width=2, with_labels=True)
-    path = "/var/www/graph/simple_path.png"
-    url = "/graph/simple_path.png"
+    t = str(time.time()).split('.')[0]
+    path = "/var/www/graph/simple_path" + str(t) + ".png"
+    url = "/graph/simple_path"+ str(t) +".png"
     plt.savefig(path) # save as png
     return result, url
 
